@@ -4,7 +4,7 @@ CC = cc
 CFLAGS =  -Wall -Wextra -Werror
 # CFLAGS = -fsanitize=address -g 
 # CFLAGS =
-SRC = srcs/philo.c srcs/utils.c srcs/monitoring.c
+SRC = srcs/philo.c srcs/utils.c srcs/monitoring.c srcs/actions.c
 OBJS = $(SRC:.c=.o)
 
 all: $(NAME)

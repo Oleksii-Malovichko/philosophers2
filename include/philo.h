@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:18:19 by alex              #+#    #+#             */
-/*   Updated: 2025/02/04 20:17:27 by alex             ###   ########.fr       */
+/*   Updated: 2025/02/05 14:04:20 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,12 @@ void	*death_monitoring(void *arg);
 int		get_forks(t_philo **philo, int num_of_philo, int i);
 void	clean_all(t_general_data *data, int till);
 int		check_eating(t_general_data *data);
+void	eating(t_philo *philo, t_general_data *data);
+void	sleeping(t_philo *philo, t_general_data *data);
+void	thinking(t_philo *philo, t_general_data *data);
+int		unlock_mutexes(t_philo *philo, t_general_data *data);
+int		get_num_of_eat(int n, char **args, t_philo *phylo);
+int		get_forks(t_philo **philo, int num_of_philo, int i);
+void	free_philos(t_general_data *data, int last_index);
 
 #endif

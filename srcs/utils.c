@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:03:07 by alex              #+#    #+#             */
-/*   Updated: 2025/02/04 20:17:04 by alex             ###   ########.fr       */
+/*   Updated: 2025/02/05 14:04:36 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,22 @@ long	get_time_ms(void)
 
 	gettimeofday(&tv, NULL);
 	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
+}
+
+void	free_philos(t_general_data *data, int last_index)
+{
+	int	i;
+
+	if (!data || !data->philo)
+		return ;
+	i = 0;
+	while (i < last_index)
+	{
+		free(data->philo[i]);
+		i++;
+	}
+	free(data->philo);
+	free(data);
 }
 
 void	clean_all(t_general_data *data, int till)
@@ -36,10 +52,10 @@ void	clean_all(t_general_data *data, int till)
 				pthread_mutex_destroy(data->philo[i]->left_fork);
 				free(data->philo[i]->left_fork);
 				data->philo[i]->left_fork = NULL;
-			}			
+			}
 			pthread_mutex_destroy(&data->philo[i]->print_lock);
 			pthread_mutex_destroy(&data->philo[i]->has_eaten_mutex);
-			pthread_mutex_destroy(&data->philo[i]->last_meal_mutex);			
+			pthread_mutex_destroy(&data->philo[i]->last_meal_mutex);
 			free(data->philo[i]);
 		}
 		i++;

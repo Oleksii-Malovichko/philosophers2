@@ -6,11 +6,37 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 12:43:27 by alex              #+#    #+#             */
-/*   Updated: 2025/02/04 19:58:17 by alex             ###   ########.fr       */
+/*   Updated: 2025/02/05 13:47:24 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
+
+int	get_num_of_eat(int n, char **args, t_philo *phylo)
+{
+	if (n == 6)
+	{
+		phylo->number_to_eat = ft_atol(args[5]);
+		if (phylo->number_to_eat <= 0)
+			return (1);
+	}
+	else
+		phylo->number_to_eat = -1;
+	return (0);
+}
+
+int	get_forks(t_philo **philo, int num_of_philo, int i)
+{
+	philo[i]->left_fork = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
+	if (!philo[i]->left_fork)
+		return (0);
+	pthread_mutex_init(philo[i]->left_fork, NULL);
+	if (i == num_of_philo - 1)
+		philo[i]->right_fork = philo[0]->left_fork;
+	else
+		philo[i]->right_fork = NULL;
+	return (1);
+}
 
 int	timeout(t_philo *philo, t_general_data *data)
 {
