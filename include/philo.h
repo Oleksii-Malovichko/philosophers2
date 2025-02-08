@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:18:19 by alex              #+#    #+#             */
-/*   Updated: 2025/02/05 14:04:20 by alex             ###   ########.fr       */
+/*   Updated: 2025/02/06 19:16:27 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_general_data
 	t_philo			**philo;
 	int				num_of_philos;
 	int				programm_run;
+	pthread_mutex_t	program_mutex;
 	long			start_time;
 }	t_general_data;
 
@@ -67,5 +68,6 @@ int		unlock_mutexes(t_philo *philo, t_general_data *data);
 int		get_num_of_eat(int n, char **args, t_philo *phylo);
 int		get_forks(t_philo **philo, int num_of_philo, int i);
 void	free_philos(t_general_data *data, int last_index);
+void	free_memory_partial(t_general_data *data, int till);
 
 #endif

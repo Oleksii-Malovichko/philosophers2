@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:02:54 by alex              #+#    #+#             */
-/*   Updated: 2025/02/05 14:03:54 by alex             ###   ########.fr       */
+/*   Updated: 2025/02/06 19:53:07 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,20 @@ void	*philo_routine(void *arg)
 	myarg = (t_as_arg *)arg;
 	philo = myarg->data->philo[myarg->i];
 	i = 0;
-	while (myarg->data->programm_run)
+	while (1)
 	{
+		pthread_mutex_lock(&myarg->data->program_mutex);
+		if (myarg->data->programm_run == 0)
+		{
+			pthread_mutex_unlock(&myarg->data->program_mutex);
+			break ;
+		}
+		pthread_mutex_unlock(&myarg->data->program_mutex);
 		if (philo->number_to_eat != -1 && check_eating(myarg->data))
 		{
+			pthread_mutex_lock(&myarg->data->program_mutex);
 			myarg->data->programm_run = 0;
+			pthread_mutex_unlock(&myarg->data->program_mutex);
 			break ;
 		}
 		eating(philo, myarg->data);
@@ -67,14 +76,14 @@ int	fill_philos(int n, char **args, t_general_data **data)
 	{
 		(*data)->philo[i] = (t_philo *)malloc(sizeof(t_philo));
 		if (!(*data)->philo[i])
-			return (free_philos(*data, i), 1);
+			return (free_philos(*data, i + 1), 1);
+		if (get_num_of_eat(n, args, (*data)->philo[i]) == 1)
+			return (free_philos(*data, i + 1), 1);
+		if (init_part(*data, i, args) == 1)
+			return (free_philos(*data, i + 1), 1);
 		pthread_mutex_init(&(*data)->philo[i]->print_lock, NULL);
 		pthread_mutex_init(&(*data)->philo[i]->has_eaten_mutex, NULL);
 		pthread_mutex_init(&(*data)->philo[i]->last_meal_mutex, NULL);
-		if (init_part(*data, i, args) == 1)
-			return (free_philos(*data, i), free((*data)->philo[i]), 1);
-		if (get_num_of_eat(n, args, (*data)->philo[i]) == 1)
-			return (clean_all(*data, i), 1);
 		(*data)->philo[i]->has_eaten = 0;
 		i++;
 	}
