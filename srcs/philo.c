@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:02:54 by alex              #+#    #+#             */
-/*   Updated: 2025/02/06 19:53:07 by alex             ###   ########.fr       */
+/*   Updated: 2025/02/10 18:52:50 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,8 @@ void	*philo_routine(void *arg)
 	i = 0;
 	while (1)
 	{
-		pthread_mutex_lock(&myarg->data->program_mutex);
-		if (myarg->data->programm_run == 0)
-		{
-			pthread_mutex_unlock(&myarg->data->program_mutex);
+		if (routine_condition(myarg, philo))
 			break ;
-		}
-		pthread_mutex_unlock(&myarg->data->program_mutex);
-		if (philo->number_to_eat != -1 && check_eating(myarg->data))
-		{
-			pthread_mutex_lock(&myarg->data->program_mutex);
-			myarg->data->programm_run = 0;
-			pthread_mutex_unlock(&myarg->data->program_mutex);
-			break ;
-		}
 		eating(philo, myarg->data);
 		sleeping(philo, myarg->data);
 		thinking(philo, myarg->data);

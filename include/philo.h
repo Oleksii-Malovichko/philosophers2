@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:18:19 by alex              #+#    #+#             */
-/*   Updated: 2025/02/06 19:16:27 by alex             ###   ########.fr       */
+/*   Updated: 2025/02/10 18:53:03 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_as_arg
 }	t_as_arg;
 
 long	ft_atol(const char *str);
+int		routine_condition(t_as_arg *myarg, t_philo *philo);
 int		memory_allocate(t_general_data **data, char **args);
 long	get_time_ms(void);
 void	*death_monitoring(void *arg);
