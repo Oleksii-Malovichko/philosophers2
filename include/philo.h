@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:18:19 by alex              #+#    #+#             */
-/*   Updated: 2025/02/10 18:53:03 by alex             ###   ########.fr       */
+/*   Updated: 2025/02/11 13:06:53 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,8 @@ int		get_num_of_eat(int n, char **args, t_philo *phylo);
 int		get_forks(t_philo **philo, int num_of_philo, int i);
 void	free_philos(t_general_data *data, int last_index);
 void	free_memory_partial(t_general_data *data, int till);
+int		eating_condition(t_philo *philo, t_general_data *data);
+void	choose_forks(t_philo *philo);
+void	print_eating(t_philo *philo, long curr_time, int philo_id);
 
 #endif
